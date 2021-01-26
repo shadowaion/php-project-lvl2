@@ -1,0 +1,13 @@
+{
+    "name": "hexlet/code",
+    "description": "php-project-lvl2",
+    "authors": [
+        {
+            "name": "shadowaion",
+            "email": "chiluka_sasha@mail.ru"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
