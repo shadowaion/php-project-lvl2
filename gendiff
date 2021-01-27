@@ -2,7 +2,8 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
-//require __DIR__ . '/../vendor/autoload.php';
+
+use php\project\lvl2\Differ;
 
 $doc = <<<DOC
 Generate diff
@@ -18,6 +19,8 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
+//echo "\n-------1--------\n";
+
 $params = array(
     'argv'=>array_slice($_SERVER['argv'], 1),
     'help'=>true,
@@ -25,4 +28,19 @@ $params = array(
     'optionsFirst'=>false,
 );
 
+$argsArray = $params['argv'];
+
+$pathToFile1 = $argsArray[0];//"./../testFiles/file1.json";
+$pathToFile2 = $argsArray[1];//"./../testFiles/file2.json";
+
+$genDiff = Differ\genDiff($pathToFile1, $pathToFile2);
+
+/*echo "\n--------2-------\n";
+var_dump($params);
+echo "\n--------3-------\n";
+var_dump($params['argv']);
+echo "\n";*/
+
 $args = Docopt::handle($doc, $params);
+
+//echo "\n--------End-------\n";
