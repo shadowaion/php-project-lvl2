@@ -15,7 +15,7 @@ function genDiff($pathToFile1, $pathToFile2)
 
     $fileOneContent = file_get_contents($pathToFile1);
     $fileTwoContent = file_get_contents($pathToFile2);
-    
+
     $fileOneArray = json_decode($fileOneContent, true);
     $fileTwoArray = json_decode($fileTwoContent, true);
 
@@ -26,7 +26,7 @@ function genDiff($pathToFile1, $pathToFile2)
 
     $arrayMergedKeysArr = array_merge($fileOneArray, $fileTwoArray);
     ksort($arrayMergedKeysArr);
-    
+
     $resultString .= "{\n";
     foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
         if (isset($fileOneArray[$itemKey]) && !isset($fileTwoArray[$itemKey])) {
