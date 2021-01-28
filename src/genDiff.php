@@ -1,6 +1,6 @@
 <?php
 
-namespace php\project\lvl2\Differ;
+namespace php\project\lvl2\src\Differ;
 
 require __DIR__ . './../vendor/autoload.php';
 
@@ -51,7 +51,5 @@ function genDiff($pathToFile1, $pathToFile2)
     }
     $resultString .= "}";
 
-    print_r($resultString);
-
-    return '';
+    return $resultString;
 }

@@ -1,0 +1,18 @@
+name: PHP CI
+on:
+    - push
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            TEST_REPORTER_ID: 1bd1531faff832bddcd2b9912f94f3f9d3844172465f0c068031f6651eece49a
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: '7.3'
+            -   name: Install
+                run: make install
+            -   name: Run linter
+                run: make lint
