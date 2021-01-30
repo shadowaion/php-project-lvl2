@@ -21,5 +21,5 @@ jobs:
                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
                      chmod +x ./cc-test-reporter
                      ./cc-test-reporter before-build
-                     phpunit $GITHUB_WORKSPACE/tests/genDiffTest.php --coverage-clover clover.xml
+                     phpunit tests/genDiffTest.php --coverage-clover clover.xml
                      ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
