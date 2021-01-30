@@ -2,8 +2,6 @@
 
 namespace php\project\lvl2\src\Differ;
 
-require __DIR__ . './../vendor/autoload.php';
-
 function typeValueToString($value)
 {
      return trim(var_export($value, true), "'");
