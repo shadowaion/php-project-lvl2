@@ -1,4 +1,4 @@
-name: PHP CI
+name: PHP GitHub Action code Linter
 on:
     - push
 jobs:
