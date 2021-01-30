@@ -1,1 +1,0 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":175:{a:2:{s:7:"defects";a:1:{s:52:"php\project\lvl2\tests\genDiffTest::testGenDiffPlain";i:5;}s:5:"times";a:1:{s:52:"php\project\lvl2\tests\genDiffTest::testGenDiffPlain";d:0.01;}}}
