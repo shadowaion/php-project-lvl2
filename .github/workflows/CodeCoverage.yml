@@ -11,8 +11,6 @@ jobs:
                 with:
                     php-version: '7.4'
                     coverage: xdebug
-            -   name: Test & publish code coverage
-                uses: paambaati/codeclimate-action@v2.7.5
             -   name: Code Climate Coverage
                 env:
                     CC_TEST_REPORTER_ID: 433db4745bebadde1699ced55e0c7da80b0bad17c6d54aa319399e8fb90768ea
