@@ -5,18 +5,18 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            -   name: Test & publish code coverage
-                uses: actions/checkout@v2
-            -   name: Install
-                uses: actions/setup-node@v2
+            -   uses: actions/checkout@v2
+            -   name: Setup PHP with xdebug
+                uses: shivammathur/setup-php@v2
                 with:
-                    node-version: '12'
-            -   run: npm install
-            -   run: npm test
+                    php-version: '7.4'
+                    coverage: xdebug
             -   name: Test & publish code coverage
                 uses: paambaati/codeclimate-action@v2.7.5
                 env:
                     CC_TEST_REPORTER_ID: 433db4745bebadde1699ced55e0c7da80b0bad17c6d54aa319399e8fb90768ea
-                with:
-                    coverageCommand: npm run coverage
-                    debug: true
+                -   name: Code Climate Coverage
+                run: |
+                     ./cc-test-reporter before-build
+                     ./vendor/bin/phpunit tests/genDiffTest.php --coverage-clover clover.xml
+                     ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?

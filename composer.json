@@ -14,7 +14,10 @@
     "autoload": {
         "files": [
             "src/genDiff.php"
-        ]
+        ],
+        "psr-4": {
+            "php\\project\\lvl2\\tests\\" : "tests"
+        }
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",

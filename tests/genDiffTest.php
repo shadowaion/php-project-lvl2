@@ -22,6 +22,6 @@ class genDiffTest extends TestCase
     {
         $plainData = file_get_contents($this->getFilePath($this->expectedDataFile));
 
-        $this->assertEquals($plainData, genDiff($this->filePathOne, $this->filePathTwo));
+        self::assertEquals($plainData, genDiff($this->filePathOne, $this->filePathTwo));
     }
 }
