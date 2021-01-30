@@ -4,7 +4,7 @@ namespace php\project\lvl2\src\Differ;
 
 require __DIR__ . './../vendor/autoload.php';
 
-function toString($value)
+function typeValueToString($value)
 {
      return trim(var_export($value, true), "'");
 }
@@ -30,20 +30,20 @@ function genDiff($pathToFile1, $pathToFile2)
     $resultString .= "{\n";
     foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
         if (isset($fileOneArray[$itemKey]) && !isset($fileTwoArray[$itemKey])) {
-            $itemValue = toString($fileOneArray[$itemKey]);
+            $itemValue = typeValueToString($fileOneArray[$itemKey]);
             $resultString .= "  - {$itemKey}: {$itemValue}\n";
         }
         if (!isset($fileOneArray[$itemKey]) && isset($fileTwoArray[$itemKey])) {
-            $itemValue = toString($fileTwoArray[$itemKey]);
+            $itemValue = typeValueToString($fileTwoArray[$itemKey]);
             $resultString .= "  + {$itemKey}: {$itemValue}\n";
         }
         if (isset($fileOneArray[$itemKey]) && isset($fileTwoArray[$itemKey])) {
             if ($fileOneArray[$itemKey] === $fileTwoArray[$itemKey]) {
-                $itemValue = toString($fileOneArray[$itemKey]);
+                $itemValue = typeValueToString($fileOneArray[$itemKey]);
                 $resultString .= "    {$itemKey}: {$itemValue}\n";
             } else {
-                $itemValueOne = toString($fileOneArray[$itemKey]);
-                $itemValueTwo = toString($fileTwoArray[$itemKey]);
+                $itemValueOne = typeValueToString($fileOneArray[$itemKey]);
+                $itemValueTwo = typeValueToString($fileTwoArray[$itemKey]);
                 $resultString .= "  - {$itemKey}: {$itemValueOne}\n";
                 $resultString .= "  + {$itemKey}: {$itemValueTwo}\n";
             }
