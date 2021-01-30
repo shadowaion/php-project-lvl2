@@ -10,11 +10,12 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: '7.4'
+                    tools: phpunit
                     coverage: xdebug
             -   name: Code Climate Coverage
                 env:
                     CC_TEST_REPORTER_ID: 433db4745bebadde1699ced55e0c7da80b0bad17c6d54aa319399e8fb90768ea
                 run: |
                      ./cc-test-reporter before-build
-                     ./vendor/bin/phpunit tests/genDiffTest.php --coverage-clover clover.xml
+                     phpunit tests/genDiffTest.php --coverage-clover clover.xml
                      ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
