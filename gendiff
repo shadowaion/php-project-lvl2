@@ -4,6 +4,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use php\project\lvl2\src\Differ;
+use php\project\lvl2\src\Parsers;
 
 $doc = <<<DOC
 Generate diff
@@ -33,7 +34,10 @@ $argsArray = $params['argv'];
 $pathToFile1 = $argsArray[0];//"./../testFiles/file1.json";
 $pathToFile2 = $argsArray[1];//"./../testFiles/file2.json";
 
-$genDiff = Differ\genDiff($pathToFile1, $pathToFile2);
+$parsedFileOneArray = Parsers\parseFile($pathToFile1);   
+$parsedFileTwoArray = Parsers\parseFile($pathToFile2);
+
+$genDiff = Differ\genDiff($parsedFileOneArray, $parsedFileTwoArray);
 
 /*echo "\n--------2-------\n";
 var_dump($params);

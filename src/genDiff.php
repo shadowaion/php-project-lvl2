@@ -7,41 +7,38 @@ function typeValueToString($value)
      return trim(var_export($value, true), "'");
 }
 
-function genDiff($pathToFile1, $pathToFile2)
+function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
 {
     $resultString = '';
 
-    $fileOneContent = file_get_contents($pathToFile1);
-    $fileTwoContent = file_get_contents($pathToFile2);
-
-    $fileOneArray = json_decode($fileOneContent, true);
-    $fileTwoArray = json_decode($fileTwoContent, true);
+    //$parsedArrayOfFileOne = json_decode($fileOneContent, true);
+    //$parsedArrayOfFileTwo = json_decode($fileTwoContent, true);
 
     //echo "------var_dump of 1------\n";
-    //var_dump($fileOneArray);
+    //var_dump($parsedArrayOfFileOne);
     //echo "------var_dump of 2------\n\n";
-    //var_dump($fileTwoArray);
+    //var_dump($parsedArrayOfFileTwo);
 
-    $arrayMergedKeysArr = array_merge($fileOneArray, $fileTwoArray);
+    $arrayMergedKeysArr = array_merge($parsedArrayOfFileOne, $parsedArrayOfFileTwo);
     ksort($arrayMergedKeysArr);
 
     $resultString .= "{\n";
     foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
-        if (isset($fileOneArray[$itemKey]) && !isset($fileTwoArray[$itemKey])) {
-            $itemValue = typeValueToString($fileOneArray[$itemKey]);
+        if (isset($parsedArrayOfFileOne[$itemKey]) && !isset($parsedArrayOfFileTwo[$itemKey])) {
+            $itemValue = typeValueToString($parsedArrayOfFileOne[$itemKey]);
             $resultString .= "  - {$itemKey}: {$itemValue}\n";
         }
-        if (!isset($fileOneArray[$itemKey]) && isset($fileTwoArray[$itemKey])) {
-            $itemValue = typeValueToString($fileTwoArray[$itemKey]);
+        if (!isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
+            $itemValue = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
             $resultString .= "  + {$itemKey}: {$itemValue}\n";
         }
-        if (isset($fileOneArray[$itemKey]) && isset($fileTwoArray[$itemKey])) {
-            if ($fileOneArray[$itemKey] === $fileTwoArray[$itemKey]) {
-                $itemValue = typeValueToString($fileOneArray[$itemKey]);
+        if (isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
+            if ($parsedArrayOfFileOne[$itemKey] === $parsedArrayOfFileTwo[$itemKey]) {
+                $itemValue = typeValueToString($parsedArrayOfFileOne[$itemKey]);
                 $resultString .= "    {$itemKey}: {$itemValue}\n";
             } else {
-                $itemValueOne = typeValueToString($fileOneArray[$itemKey]);
-                $itemValueTwo = typeValueToString($fileTwoArray[$itemKey]);
+                $itemValueOne = typeValueToString($parsedArrayOfFileOne[$itemKey]);
+                $itemValueTwo = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
                 $resultString .= "  - {$itemKey}: {$itemValueOne}\n";
                 $resultString .= "  + {$itemKey}: {$itemValueTwo}\n";
             }

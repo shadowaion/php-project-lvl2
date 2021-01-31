@@ -5,6 +5,7 @@ namespace php\project\lvl2\tests;
 use PHPUnit\Framework\TestCase;
 
 use function php\project\lvl2\src\Differ\genDiff;
+use function php\project\lvl2\src\Parsers\parseFile;
 
 class genDiffTest extends TestCase
 {
@@ -24,13 +25,19 @@ class genDiffTest extends TestCase
     {
         $plainData = file_get_contents($this->getFilePath($this->expectedDataFile));
 
-        self::assertEquals($plainData, genDiff($this->jsonOne, $this->jsonTwo));
+        $parsedJSONFileOne = parseFile($this->jsonOne);
+        $parsedJSONFileTwo = parseFile($this->jsonTwo);
+
+        self::assertEquals($plainData, genDiff($parsedJSONFileOne, $parsedJSONFileTwo));
     }
 
     public function testGenDiffYAMLPlain()
     {
         $plainData = file_get_contents($this->getFilePath($this->expectedDataFile));
 
-        self::assertEquals($plainData, genDiff($this->yamlOne, $this->yamlTwo));
+        $parsedYAMLFileOne = parseFile($this->yamlOne);
+        $parsedYAMLFileTwo = parseFile($this->yamlTwo);
+
+        self::assertEquals($plainData, genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo));
     }
 }

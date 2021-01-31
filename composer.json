@@ -9,11 +9,13 @@
     ],
     "require": {
         "docopt/docopt": "^1.0",
-        "funct/funct": "^1.5"
+        "funct/funct": "^1.5",
+        "symfony/yaml": "^5.2"
     },
     "autoload": {
         "files": [
-            "src/genDiff.php"
+            "src/genDiff.php",
+            "src/Parsers.php"
         ],
         "psr-4": {
             "php\\project\\lvl2\\tests\\" : "tests"
