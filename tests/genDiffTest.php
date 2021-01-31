@@ -11,8 +11,8 @@ class genDiffTest extends TestCase
     private $path = __DIR__ . "/fixtures/";
     private $jsonOne = __DIR__ . "/fixtures/fileJSON1.json";
     private $jsonTwo = __DIR__ . "/fixtures/fileJSON2.json";
-    private $yamlOne = __DIR__ . "/fixtures/fileYAML1.yaml";
-    private $yamlTwo = __DIR__ . "/fixtures/fileYAML2.yaml";
+    private $yamlOne = __DIR__ . "/fixtures/fileYAML1.yml";
+    private $yamlTwo = __DIR__ . "/fixtures/fileYAML2.yml";
     private $expectedDataFile = "plain.txt";
 
     private function getFilePath($name)
