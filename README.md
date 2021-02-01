@@ -5,3 +5,4 @@
 
 asciinema:
 1. https://asciinema.org/a/9fqTNDcjL7XFxzdrFtUIq4XcG - flat array JSON comparison.
+2. https://asciinema.org/a/x1vySfKuT1fm2x1srkzOzvtGp - flat array YAML comparison.
