@@ -37,7 +37,7 @@ $pathToFile2 = $argsArray[1];//"./../testFiles/file2.json";
 $parsedFileOneArray = Parsers\parseFile($pathToFile1);   
 $parsedFileTwoArray = Parsers\parseFile($pathToFile2);
 
-$genDiff = Differ\findDiff($parsedFileOneArray, $parsedFileTwoArray);
+$genDiff = Differ\genDiff($parsedFileOneArray, $parsedFileTwoArray);
 
 print_r($genDiff);
 /*echo "\n--------2-------\n";
