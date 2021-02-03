@@ -40,6 +40,12 @@ $parsedFileTwoArray = Parsers\parseFile($pathToFile2);
 $genDiff = Differ\genDiff($parsedFileOneArray, $parsedFileTwoArray);
 
 print_r($genDiff);
+
+echo "\n---------------------------------------\n";
+
+$outputString = Differ\stylish($genDiff);
+
+print_r($outputString);
 /*echo "\n--------2-------\n";
 var_dump($params);
 echo "\n--------3-------\n";

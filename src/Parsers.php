@@ -38,8 +38,8 @@ function parseFile($pathToFile)
         
         $fileArray = json_decode($fileContent, true);
 
-        echo "\n--------------------------What is here JSON real array---------------------------\n";
-        var_dump($fileArray);
+        //echo "\n--------------------------What is here JSON real array---------------------------\n";
+        //var_dump($fileArray);
     }
     if ($fileParts['extension'] === 'yml') {
         $fileObj = Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP);
@@ -47,8 +47,8 @@ function parseFile($pathToFile)
 
         //echo "\n--------------------------What is here YAML object---------------------------\n";
         //var_dump($fileObj);
-        echo "\n--------------------------What is here YAML array---------------------------\n";
-        var_dump($fileArray);
+        //echo "\n--------------------------What is here YAML array---------------------------\n";
+        //var_dump($fileArray);
 
         $fileArray = get_object_vars($fileObj);
     }
