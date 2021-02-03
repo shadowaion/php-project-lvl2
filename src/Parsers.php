@@ -50,7 +50,7 @@ function parseFile($pathToFile)
         //echo "\n--------------------------What is here YAML array---------------------------\n";
         //var_dump($fileArray);
 
-        $fileArray = get_object_vars($fileObj);
+        //$fileArray = get_object_vars($fileObj);
     }
 
     return $fileArray;

@@ -39,9 +39,9 @@ $parsedFileTwoArray = Parsers\parseFile($pathToFile2);
 
 $genDiff = Differ\genDiff($parsedFileOneArray, $parsedFileTwoArray);
 
-print_r($genDiff);
+//print_r($genDiff);
 
-echo "\n---------------------------------------\n";
+//echo "\n---------------------------------------\n";
 
 $outputString = Differ\stylish($genDiff);
 

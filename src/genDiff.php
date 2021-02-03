@@ -4,7 +4,14 @@ namespace php\project\lvl2\src\Differ;
 
 function typeValueToString($value)
 {
-     return trim(var_export($value, true), "'");
+    if (!is_array($value)) {
+        $result = trim(var_export($value, true), "'");
+        if ($result === 'NULL'){
+            return strtolower($result);
+        }
+        return trim(var_export($value, true), "'");
+    }
+    return $value;
 }
 
 function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
@@ -34,31 +41,34 @@ function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
         //     $secondStringViewOfValue = "array";
         // }
 
-        if (isset($firstStringViewOfValue) && !isset($secondStringViewOfValue)) {
+        if (array_key_exists($itemKey, $parsedArrayOfFileOne) && !array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+        //if (isset($parsedArrayOfFileOne[$itemKey]) && !isset($parsedArrayOfFileTwo[$itemKey])) {
             $resultArr[] = [
                 "key" => $itemKey, 
-                "firstArrValue" => $parsedArrayOfFileOne[$itemKey], 
+                "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]), 
                 "secondArrValue" => null,
                 "children" => null,
                 "cmpResult" => 1
             ];
         }
-        if (!isset($firstStringViewOfValue) && isset($secondStringViewOfValue)) {
+        if (!array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+        //if (!isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
             $resultArr[] = [
                 "key" => $itemKey, 
                 "firstArrValue" => null, 
-                "secondArrValue" => $parsedArrayOfFileTwo[$itemKey],
+                "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
                 "children" => null,
                 "cmpResult" => 2
             ];
         }
-        if (isset($firstStringViewOfValue) && isset($secondStringViewOfValue)) {
+        if (array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+        //if (isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
             if (is_array($parsedArrayOfFileOne[$itemKey]) && is_array($parsedArrayOfFileTwo[$itemKey])) {
                 $childArr = genDiff($parsedArrayOfFileOne[$itemKey], $parsedArrayOfFileTwo[$itemKey]);
                 $resultArr[] = [
                     "key" => $itemKey, 
-                    "firstArrValue" => $parsedArrayOfFileOne[$itemKey], 
-                    "secondArrValue" => $parsedArrayOfFileTwo[$itemKey],
+                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]), 
+                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
                     "children" => $childArr,
                     "cmpResult" => 3
                 ];
@@ -66,16 +76,16 @@ function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
                 if ($parsedArrayOfFileOne[$itemKey] === $parsedArrayOfFileTwo[$itemKey]) {
                     $resultArr[] = [
                         "key" => $itemKey, 
-                        "firstArrValue" => $parsedArrayOfFileOne[$itemKey], 
-                        "secondArrValue" => $parsedArrayOfFileTwo[$itemKey],
+                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]), 
+                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
                         "children" => null,
                         "cmpResult" => 3
                     ];
                 } else {
                     $resultArr[] = [
                         "key" => $itemKey, 
-                        "firstArrValue" => $parsedArrayOfFileOne[$itemKey], 
-                        "secondArrValue" => $parsedArrayOfFileTwo[$itemKey],
+                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]), 
+                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
                         "children" => null,
                         "cmpResult" => 4
                     ];
@@ -83,8 +93,8 @@ function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
             } else {
                 $resultArr[] = [
                     "key" => $itemKey, 
-                    "firstArrValue" => $parsedArrayOfFileOne[$itemKey], 
-                    "secondArrValue" => $parsedArrayOfFileTwo[$itemKey],
+                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]), 
+                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
                     "children" => null,
                     "cmpResult" => 4
                 ];

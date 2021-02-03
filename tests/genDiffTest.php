@@ -62,4 +62,16 @@ class genDiffTest extends TestCase
 
         self::assertEquals($nestedData, stylish($genDiff));
     }
+
+    public function testGenDiffYAMLNested()
+    {
+        $nestedData = file_get_contents($this->getFilePath($this->expectedNestedDataFile));
+
+        $parsedYAMLFileOne = parseFile($this->nestedYamlOne);
+        $parsedYAMLFileTwo = parseFile($this->nestedYamlTwo);
+
+        $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
+
+        self::assertEquals($nestedData, stylish($genDiff));
+    }
 }
