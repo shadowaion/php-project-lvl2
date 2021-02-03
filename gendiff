@@ -4,7 +4,6 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use php\project\lvl2\src\Differ;
-use php\project\lvl2\src\Parsers;
 
 $doc = <<<DOC
 Generate diff
@@ -30,20 +29,23 @@ $params = array(
 );
 
 $argsArray = $params['argv'];
+$pathToFile1 = '';
+$pathToFile2 = '';
 
-$pathToFile1 = $argsArray[0];//"./../testFiles/file1.json";
-$pathToFile2 = $argsArray[1];//"./../testFiles/file2.json";
+print_r(__DIR__);
+print_r($argsArray);
 
-$parsedFileOneArray = Parsers\parseFile($pathToFile1);   
-$parsedFileTwoArray = Parsers\parseFile($pathToFile2);
+if ($argsArray[0] === "--format") {
+  $formatName = $argsArray[1];
+  $pathToFile1 = $argsArray[2];//"./../testFiles/file1.json";
+  $pathToFile2 = $argsArray[3];//"./../testFiles/file2.json";
+} else {
+  $pathToFile1 = $argsArray[0];
+  $pathToFile2 = $argsArray[1];
+}
 
-$genDiff = Differ\genDiff($parsedFileOneArray, $parsedFileTwoArray);
 
-//print_r($genDiff);
-
-//echo "\n---------------------------------------\n";
-
-$outputString = Differ\stylish($genDiff);
+$outputString = Differ\genDiff($pathToFile1, $pathToFile2);
 
 print_r($outputString);
 /*echo "\n--------2-------\n";
@@ -53,5 +55,3 @@ var_dump($params['argv']);
 echo "\n";*/
 
 $args = Docopt::handle($doc, $params);
-
-//echo "\n--------End-------\n";

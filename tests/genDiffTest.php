@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function php\project\lvl2\src\Differ\genDiff;
 use function php\project\lvl2\src\Differ\stylish;
+use function php\project\lvl2\src\Differ\plain;
 use function php\project\lvl2\src\Parsers\parseFile;
 
 class genDiffTest extends TestCase
@@ -21,6 +22,8 @@ class genDiffTest extends TestCase
     private $nestedYamlTwo = __DIR__ . "/fixtures/fileNestedYAML2.yml";
     private $expectedDataFile = "plain.txt";
     private $expectedNestedDataFile = "nested.txt";
+    private $expectedPlainFormatNestedDataFile = "nestedPlainFormatter.txt";
+    
 
     private function getFilePath($name)
     {
@@ -73,5 +76,29 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
 
         self::assertEquals($nestedData, stylish($genDiff));
+    }
+
+    public function testGenDiffJSONNestedPlainFormat()
+    {
+        $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+
+        $parsedJSONFileOne = parseFile($this->nestedJsonOne);
+        $parsedJSONFileTwo = parseFile($this->nestedJsonTwo);
+
+        $genDiff = genDiff($parsedJSONFileOne, $parsedJSONFileTwo);
+
+        self::assertEquals($nestedData, plain($genDiff));
+    }
+
+    public function testGenDiffYAMLNestedPlainFormat()
+    {
+        $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+
+        $parsedYAMLFileOne = parseFile($this->nestedYamlOne);
+        $parsedYAMLFileTwo = parseFile($this->nestedYamlTwo);
+
+        $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
+
+        self::assertEquals($nestedData, plain($genDiff));
     }
 }

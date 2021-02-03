@@ -4,11 +4,6 @@ namespace php\project\lvl2\src\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function typeValueToString($value)
-{
-     return trim(var_export($value, true), "'");
-}
-
 function ConvertSTDObjectToArray($objToConvert)
 {
     $convertedArray = get_object_vars($objToConvert);
