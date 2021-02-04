@@ -46,7 +46,7 @@ if ($argsArray[0] === "--format" || $argsArray[0] === "--f") {
 
 $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
-print_r($outputString);
+echo $outputString;
 
 return $outputString;
 
