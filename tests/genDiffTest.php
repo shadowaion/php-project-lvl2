@@ -5,9 +5,6 @@ namespace php\project\lvl2\tests;
 use PHPUnit\Framework\TestCase;
 
 use function php\project\lvl2\src\Differ\genDiff;
-use function php\project\lvl2\src\Differ\stylish;
-use function php\project\lvl2\src\Differ\plain;
-use function php\project\lvl2\src\Parsers\parseFile;
 
 class genDiffTest extends TestCase
 {
@@ -34,71 +31,71 @@ class genDiffTest extends TestCase
     {
         $plainData = file_get_contents($this->getFilePath($this->expectedDataFile));
 
-        $parsedJSONFileOne = parseFile($this->jsonOne);
-        $parsedJSONFileTwo = parseFile($this->jsonTwo);
+        $genDiff = genDiff($this->jsonOne, $this->jsonTwo);
 
-        $genDiff = genDiff($parsedJSONFileOne, $parsedJSONFileTwo);
-
-        self::assertEquals($plainData, stylish($genDiff));
+        self::assertEquals($plainData, $genDiff);
     }
 
     public function testGenDiffYAMLPlain()
     {
         $plainData = file_get_contents($this->getFilePath($this->expectedDataFile));
 
-        $parsedYAMLFileOne = parseFile($this->yamlOne);
-        $parsedYAMLFileTwo = parseFile($this->yamlTwo);
+        $genDiff = genDiff($this->yamlOne, $this->yamlTwo);
 
-        $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
-
-        self::assertEquals($plainData, stylish($genDiff));
+        self::assertEquals($plainData, $genDiff);
     }
 
     public function testGenDiffJSONNested()
     {
         $nestedData = file_get_contents($this->getFilePath($this->expectedNestedDataFile));
 
-        $parsedJSONFileOne = parseFile($this->nestedJsonOne);
-        $parsedJSONFileTwo = parseFile($this->nestedJsonTwo);
+        $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "stylish");
 
-        $genDiff = genDiff($parsedJSONFileOne, $parsedJSONFileTwo);
-
-        self::assertEquals($nestedData, stylish($genDiff));
+        self::assertEquals($nestedData, $genDiff);
     }
 
     public function testGenDiffYAMLNested()
     {
         $nestedData = file_get_contents($this->getFilePath($this->expectedNestedDataFile));
 
-        $parsedYAMLFileOne = parseFile($this->nestedYamlOne);
-        $parsedYAMLFileTwo = parseFile($this->nestedYamlTwo);
+        $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "stylish");
 
-        $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
-
-        self::assertEquals($nestedData, stylish($genDiff));
+        self::assertEquals($nestedData, $genDiff);
     }
 
     public function testGenDiffJSONNestedPlainFormat()
     {
         $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
 
-        $parsedJSONFileOne = parseFile($this->nestedJsonOne);
-        $parsedJSONFileTwo = parseFile($this->nestedJsonTwo);
+        $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "plain");
 
-        $genDiff = genDiff($parsedJSONFileOne, $parsedJSONFileTwo);
-
-        self::assertEquals($nestedData, plain($genDiff));
+        self::assertEquals($nestedData, $genDiff);
     }
 
     public function testGenDiffYAMLNestedPlainFormat()
     {
         $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
 
-        $parsedYAMLFileOne = parseFile($this->nestedYamlOne);
-        $parsedYAMLFileTwo = parseFile($this->nestedYamlTwo);
+        $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "plain");
 
-        $genDiff = genDiff($parsedYAMLFileOne, $parsedYAMLFileTwo);
-
-        self::assertEquals($nestedData, plain($genDiff));
+        self::assertEquals($nestedData, $genDiff);
     }
+
+    // public function testGenDiffJSONNestedJsonFormat()
+    // {
+    //     $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+
+    //     $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "json");
+
+    //     self::assertEquals($nestedData, $genDiff));
+    // }
+
+    // public function testGenDiffYAMLNestedJsonFormat()
+    // {
+    //     $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+
+    //     $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "json");
+
+    //     self::assertEquals($nestedData, $genDiff));
+    // }
 }
