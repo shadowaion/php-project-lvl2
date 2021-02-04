@@ -29,23 +29,22 @@ $params = array(
 );
 
 $argsArray = $params['argv'];
+$formatName = '';
 $pathToFile1 = '';
 $pathToFile2 = '';
-
-print_r(__DIR__);
-print_r($argsArray);
 
 if ($argsArray[0] === "--format") {
   $formatName = $argsArray[1];
   $pathToFile1 = $argsArray[2];//"./../testFiles/file1.json";
   $pathToFile2 = $argsArray[3];//"./../testFiles/file2.json";
 } else {
+  $formatName = '';
   $pathToFile1 = $argsArray[0];
   $pathToFile2 = $argsArray[1];
 }
 
 
-$outputString = Differ\genDiff($pathToFile1, $pathToFile2);
+$outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
 print_r($outputString);
 /*echo "\n--------2-------\n";

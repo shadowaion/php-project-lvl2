@@ -12,6 +12,7 @@ function chooseFormatter($genDiffArray, $formatName)
     $outputResult = '';
 
     switch ($formatName) {
+        case '':
         case "stylish":
             $outputResult = Stylish\stylish($genDiffArray);
             break;
