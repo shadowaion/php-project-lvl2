@@ -33,7 +33,7 @@ $formatName = '';
 $pathToFile1 = '';
 $pathToFile2 = '';
 
-if ($argsArray[0] === "--format") {
+if ($argsArray[0] === "--format" || $argsArray[0] === "--f") {
   $formatName = $argsArray[1];
   $pathToFile1 = $argsArray[2];//"./../testFiles/file1.json";
   $pathToFile2 = $argsArray[3];//"./../testFiles/file2.json";
