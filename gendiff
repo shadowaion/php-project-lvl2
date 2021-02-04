@@ -48,6 +48,21 @@ $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
 echo $outputString;
 
+$valueToCheck = <<<VAL
+{\n
+  app_1  | -    common: {\n
+  app_1  | -      + follow: false\n
+  app_1  | -        setting1: Value 1\n
+  app_1  | -      - setting2: 200\n
+  app_1  | -      - setting3: true\n
+  app_1  | -      + setting3: {\n
+  app_1  | -            key: value\n
+  app_1  | -        }\n
+VAL;
+
+echo "\n----------1-----------\n";
+return $valueToCheck;
+echo "\n----------2-----------\n";
 return $outputString;
 
 $args = Docopt::handle($doc, $params);
