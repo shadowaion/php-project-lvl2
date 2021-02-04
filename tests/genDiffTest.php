@@ -34,6 +34,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->jsonOne, $this->jsonTwo);
 
+        echo $genDiff;
+        
         self::assertEquals($plainData, $genDiff);
     }
 
@@ -43,6 +45,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->yamlOne, $this->yamlTwo);
 
+        echo $genDiff;
+        
         self::assertEquals($plainData, $genDiff);
     }
 
@@ -52,6 +56,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "stylish");
 
+        echo $genDiff;
+        
         self::assertEquals($nestedData, $genDiff);
     }
 
@@ -61,6 +67,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "stylish");
 
+        echo $genDiff;
+        
         self::assertEquals($nestedData, $genDiff);
     }
 
@@ -70,6 +78,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "plain");
 
+        echo $genDiff;
+        
         self::assertEquals($nestedData, $genDiff);
     }
 
@@ -79,6 +89,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "plain");
 
+        echo $genDiff;
+        
         self::assertEquals($nestedData, $genDiff);
     }
 
@@ -88,6 +100,8 @@ class genDiffTest extends TestCase
 
         $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "json");
 
+        echo $genDiff;
+        
         self::assertEquals($nestedData, $genDiff);
     }
 
@@ -96,6 +110,8 @@ class genDiffTest extends TestCase
         $nestedData = file_get_contents($this->getFilePath($this->expectedJsonFormatNestedDataFile));
 
         $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "json");
+
+        echo $genDiff;
 
         self::assertEquals($nestedData, $genDiff);
     }
