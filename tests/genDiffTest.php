@@ -20,6 +20,7 @@ class genDiffTest extends TestCase
     private $expectedDataFile = "plain.txt";
     private $expectedNestedDataFile = "nested.txt";
     private $expectedPlainFormatNestedDataFile = "nestedPlainFormatter.txt";
+    private $expectedJsonFormatNestedDataFile = "jsonFormat.txt";
     
 
     private function getFilePath($name)
@@ -81,21 +82,21 @@ class genDiffTest extends TestCase
         self::assertEquals($nestedData, $genDiff);
     }
 
-    // public function testGenDiffJSONNestedJsonFormat()
-    // {
-    //     $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+    public function testGenDiffJSONNestedJsonFormat()
+    {
+        $nestedData = file_get_contents($this->getFilePath($this->expectedJsonFormatNestedDataFile));
 
-    //     $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "json");
+        $genDiff = genDiff($this->nestedJsonOne, $this->nestedJsonTwo, "json");
 
-    //     self::assertEquals($nestedData, $genDiff));
-    // }
+        self::assertEquals($nestedData, $genDiff);
+    }
 
-    // public function testGenDiffYAMLNestedJsonFormat()
-    // {
-    //     $nestedData = file_get_contents($this->getFilePath($this->expectedPlainFormatNestedDataFile));
+    public function testGenDiffYAMLNestedJsonFormat()
+    {
+        $nestedData = file_get_contents($this->getFilePath($this->expectedJsonFormatNestedDataFile));
 
-    //     $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "json");
+        $genDiff = genDiff($this->nestedYamlOne, $this->nestedYamlTwo, "json");
 
-    //     self::assertEquals($nestedData, $genDiff));
-    // }
+        self::assertEquals($nestedData, $genDiff);
+    }
 }

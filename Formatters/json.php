@@ -14,7 +14,7 @@ function typeJsonNestedString($arrayToType, $nestedLevel)
     $resultString .= "{\n";
     foreach ($arrayToType as $itemKey => $itemValue) {
         if (is_array($itemValue)) {
-            $childString = typeStylishNestedString($itemValue, $nextNestedLvl);
+            $childString = typeJsonNestedString($itemValue, $nextNestedLvl);
             $resultString .= "{$nextSpaces}\"{$itemKey}\": {$childString}\n";
         } else {
             if (gettype($itemKey) === 'string') {
@@ -50,7 +50,7 @@ function json($arrayToOutAsString, $nestedLevel = 0)
                         $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$stringifyValue}\n";
                     }
                 } elseif ($arr['children'] === null && is_array($firstValueOfStructure)) {
-                    $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
+                    $childString = typeJsonNestedString($firstValueOfStructure, $nextNestedLvl);
                     $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
@@ -63,7 +63,7 @@ function json($arrayToOutAsString, $nestedLevel = 0)
                         $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$stringifyValue}\n";
                     }
                 } elseif ($arr['children'] === null && is_array($secondValueOfStructure)) {
-                    $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
+                    $childString = typeJsonNestedString($secondValueOfStructure, $nextNestedLvl);
                     $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
@@ -91,7 +91,7 @@ function json($arrayToOutAsString, $nestedLevel = 0)
                             $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$stringifyValue}\n";
                         }
                     } else {
-                        $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
+                        $childString = typeJsonNestedString($firstValueOfStructure, $nextNestedLvl);
                         $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$childString}\n";
                     }
                     if (!is_array($secondValueOfStructure)) {
@@ -102,7 +102,7 @@ function json($arrayToOutAsString, $nestedLevel = 0)
                             $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$stringifyValue}\n";
                         }
                     } else {
-                        $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
+                        $childString = typeJsonNestedString($secondValueOfStructure, $nextNestedLvl);
                         $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$childString}\n";
                     }
                 }

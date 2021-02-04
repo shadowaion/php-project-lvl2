@@ -8,3 +8,4 @@ asciinema:
 2. https://asciinema.org/a/x1vySfKuT1fm2x1srkzOzvtGp - flat array YAML comparison.
 3. https://asciinema.org/a/5Yv4FTRwg2LDrH30ah3TOBZyF - nested JSON and YAML comparison.
 4. https://asciinema.org/a/xU8XJSu8Rw9r22vUtt3B0axz3 - nested YAML comparison and output in "plain" format.
+5. https://asciinema.org/a/REzkX0o1meeDDp7g1H9jwpQb8 - nested YAML comparison and output in "json" format.
