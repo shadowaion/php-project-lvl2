@@ -2,17 +2,7 @@
 
 namespace php\project\lvl2\Formatters\Stylish;
 
-function typeValueToString($value)
-{
-    if (!is_array($value)) {
-        $result = trim(var_export($value, true), "'");
-        if ($result === 'NULL') {
-            return strtolower($result);
-        }
-        return trim(var_export($value, true), "'");
-    }
-    return $value;
-}
+use function php\project\lvl2\src\Functions\typeValueToString;
 
 function typeStylishNestedString($arrayToType, $nestedLevel)
 {

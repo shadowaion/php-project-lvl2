@@ -2,22 +2,10 @@
 
 namespace php\project\lvl2\src\Differ;
 
-require __DIR__ . './../vendor/autoload.php';
-
 use php\project\lvl2\src\Parsers;
 use php\project\lvl2\src\Formatters;
 
-function typeValueToString($value)
-{
-    if (!is_array($value)) {
-        $result = trim(var_export($value, true), "'");
-        if ($result === 'NULL') {
-            return strtolower($result);
-        }
-        return trim(var_export($value, true), "'");
-    }
-    return $value;
-}
+use function php\project\lvl2\src\Functions\typeValueToString;
 
 function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
 {
@@ -102,7 +90,7 @@ function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
 {
     $outputResult = '';
 
-    $parsedFileOneArray = Parsers\parseFile($pathToFile1);   
+    $parsedFileOneArray = Parsers\parseFile($pathToFile1);
     $parsedFileTwoArray = Parsers\parseFile($pathToFile2);
 
     $genDiffArray = findDiff($parsedFileOneArray, $parsedFileTwoArray);
