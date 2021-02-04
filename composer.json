@@ -18,7 +18,8 @@
             "src/Parsers.php",
             "src/Formatters.php",
             "Formatters/stylish.php",
-            "Formatters/plain.php"
+            "Formatters/plain.php",
+            "Formatters/json.php"
         ],
         "psr-4": {
             "php\\project\\lvl2\\tests\\" : "tests"

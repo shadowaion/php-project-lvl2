@@ -1,6 +1,6 @@
 <?php
 
-namespace php\project\lvl2\Formatters\Plane;
+namespace php\project\lvl2\Formatters\Json;
 
 function typeValueToString($value)
 {
@@ -14,71 +14,112 @@ function typeValueToString($value)
     return $value;
 }
 
-function plain($arrayToOutAsString, $parentsRoute = '')
+function typeStylishNestedString($arrayToType, $nestedLevel)
 {
     $resultString = '';
+    $nextNestedLvl = $nestedLevel + 1;
+    $currSpaces = str_repeat("    ", $nestedLevel);
+    $nextSpaces = str_repeat("    ", $nextNestedLvl);
 
+    $resultString .= "{\n";
+    foreach ($arrayToType as $itemKey => $itemValue) {
+        if (is_array($itemValue)) {
+            $childString = typeStylishNestedString($itemValue, $nextNestedLvl);
+            $resultString .= "{$nextSpaces}\"{$itemKey}\": {$childString}\n";
+        } else {
+            if (gettype($itemKey) === 'string') {
+                $resultString .= "{$nextSpaces}\"{$itemKey}\": \"{$itemValue}\"\n";
+            } else {
+                $resultString .= "{$nextSpaces}\"{$itemKey}\": {$itemValue}\n";
+            }
+        }
+    }
+    $resultString .= "{$currSpaces}}";
+
+    return $resultString;
+}
+
+function json($arrayToOutAsString, $nestedLevel = 0)
+{
+    $resultString = '';
+    $nextNestedLvl = $nestedLevel + 1;
+    $spaces = str_repeat("    ", $nestedLevel);
+
+    $resultString .= "{\n";
     foreach ($arrayToOutAsString as $key => $arr) {
         $keyOfStructure = $arr['key'];
         $firstValueOfStructure = $arr['firstArrValue'];
         $secondValueOfStructure = $arr['secondArrValue'];
-        $currentParentsRoute = "";
-
-        $currentParentsRoute = empty($parentsRoute) ? $keyOfStructure : "{$parentsRoute}.{$keyOfStructure}";
-        
         switch ($arr['cmpResult']) {
             case 1:
                 if ($arr['children'] === null && !is_array($firstValueOfStructure)) {
-                    $resultString .= "Property '{$currentParentsRoute}' was removed\n";
+                    $stringifyValue = typeValueToString($firstValueOfStructure);
+                    if ($arr['secondValueType'] === 'string') {
+                        $resultString .= "{$spaces}  - \"{$keyOfStructure}\": \"{$stringifyValue}\"\n";
+                    } else {
+                        $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$stringifyValue}\n";
+                    }
                 } elseif ($arr['children'] === null && is_array($firstValueOfStructure)) {
-                    $resultString .= "Property '{$currentParentsRoute}' was removed\n";
+                    $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
+                    $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
             case 2:
                 if ($arr['children'] === null && !is_array($secondValueOfStructure)) {
                     $stringifyValue = typeValueToString($secondValueOfStructure);
                     if ($arr['secondValueType'] === 'string') {
-                        $resultString .= "Property '{$currentParentsRoute}' was added with value: '{$stringifyValue}'\n";
+                        $resultString .= "{$spaces}  + \"{$keyOfStructure}\": \"{$stringifyValue}\"\n";
                     } else {
-                        $resultString .= "Property '{$currentParentsRoute}' was added with value: {$stringifyValue}\n";
+                        $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$stringifyValue}\n";
                     }
                 } elseif ($arr['children'] === null && is_array($secondValueOfStructure)) {
-                    $resultString .= "Property '{$currentParentsRoute}' was added with value: [complex value]\n";
+                    $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
+                    $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
             case 3:
-                if ($arr['children'] !== null) {
-                    $childString = plain($arr['children'], $currentParentsRoute);
-                    $resultString .= "{$childString}\n";
+                if ($arr['children'] === null) {
+                    $stringifyValue = typeValueToString($firstValueOfStructure);
+                    if ($arr['secondValueType'] === 'string') {
+                        $resultString .= "{$spaces}    \"{$keyOfStructure}\": \"{$stringifyValue}\"\n";
+                    } else {
+                        $resultString .= "{$spaces}    \"{$keyOfStructure}\": {$stringifyValue}\n";
+                    }
+                    
+                } else {
+                    $childString = json($arr['children'], $nextNestedLvl);
+                    $resultString .= "{$spaces}    \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
             case 4:
                 if ($arr['children'] === null) {
                     if (!is_array($firstValueOfStructure)) {
                         $stringifyValue = typeValueToString($firstValueOfStructure);
-                        if ($arr['firstValueType'] === 'string') {
-                            $resultString .= "Property '{$currentParentsRoute}' was updated. From '{$stringifyValue}' ";
+                        if ($arr['secondValueType'] === 'string') {
+                            $resultString .= "{$spaces}  - \"{$keyOfStructure}\": \"{$stringifyValue}\"\n";
                         } else {
-                            $resultString .= "Property '{$currentParentsRoute}' was updated. From {$stringifyValue} ";
+                            $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$stringifyValue}\n";
                         }
                     } else {
-                        $resultString .= "Property '{$currentParentsRoute}' was updated. From [complex value] ";
+                        $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
+                        $resultString .= "{$spaces}  - \"{$keyOfStructure}\": {$childString}\n";
                     }
                     if (!is_array($secondValueOfStructure)) {
                         $stringifyValue = typeValueToString($secondValueOfStructure);
                         if ($arr['secondValueType'] === 'string') {
-                            $resultString .= "to '{$stringifyValue}'\n";
+                            $resultString .= "{$spaces}  + \"{$keyOfStructure}\": \"{$stringifyValue}\"\n";
                         } else {
-                            $resultString .= "to {$stringifyValue}\n";
+                            $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$stringifyValue}\n";
                         }
                     } else {
-                        $resultString .= "to [complex value]\n";
+                        $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
+                        $resultString .= "{$spaces}  + \"{$keyOfStructure}\": {$childString}\n";
                     }
                 }
                 break;
         }
     }
+    $resultString .= "{$spaces}}";
 
-    $trimmedResult = rtrim ($resultString);
-    return $trimmedResult;
+    return $resultString;
 }
