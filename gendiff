@@ -47,10 +47,7 @@ if ($argsArray[0] === "--format") {
 $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
 print_r($outputString);
-/*echo "\n--------2-------\n";
-var_dump($params);
-echo "\n--------3-------\n";
-var_dump($params['argv']);
-echo "\n";*/
+
+return $outputString;
 
 $args = Docopt::handle($doc, $params);
