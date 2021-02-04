@@ -15,7 +15,12 @@
     "autoload": {
         "files": [
             "src/genDiff.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/Formatters.php",
+            "src/Functions.php",
+            "Formatters/stylish.php",
+            "Formatters/plain.php",
+            "Formatters/json.php"
         ],
         "psr-4": {
             "php\\project\\lvl2\\tests\\" : "tests"

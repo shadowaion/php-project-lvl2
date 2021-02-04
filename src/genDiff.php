@@ -2,49 +2,100 @@
 
 namespace php\project\lvl2\src\Differ;
 
-function typeValueToString($value)
+use php\project\lvl2\src\Parsers;
+use php\project\lvl2\src\Formatters;
+
+use function php\project\lvl2\src\Functions\typeValueToString;
+
+function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
 {
-     return trim(var_export($value, true), "'");
-}
-
-function genDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
-{
-    $resultString = '';
-
-    //$parsedArrayOfFileOne = json_decode($fileOneContent, true);
-    //$parsedArrayOfFileTwo = json_decode($fileTwoContent, true);
-
-    //echo "------var_dump of 1------\n";
-    //var_dump($parsedArrayOfFileOne);
-    //echo "------var_dump of 2------\n\n";
-    //var_dump($parsedArrayOfFileTwo);
+    $resultArr = [];
 
     $arrayMergedKeysArr = array_merge($parsedArrayOfFileOne, $parsedArrayOfFileTwo);
     ksort($arrayMergedKeysArr);
-
-    $resultString .= "{\n";
     foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
-        if (isset($parsedArrayOfFileOne[$itemKey]) && !isset($parsedArrayOfFileTwo[$itemKey])) {
-            $itemValue = typeValueToString($parsedArrayOfFileOne[$itemKey]);
-            $resultString .= "  - {$itemKey}: {$itemValue}\n";
+        if (array_key_exists($itemKey, $parsedArrayOfFileOne) && !array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+            $resultArr[] = [
+                "key" => $itemKey,
+                "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                "secondArrValue" => null,
+                "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
+                "secondValueType" => null,
+                "children" => null,
+                "cmpResult" => 1
+            ];
         }
-        if (!isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
-            $itemValue = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
-            $resultString .= "  + {$itemKey}: {$itemValue}\n";
+        if (!array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+            $resultArr[] = [
+                "key" => $itemKey,
+                "firstArrValue" => null,
+                "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                "firstValueType" => null,
+                "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
+                "children" => null,
+                "cmpResult" => 2
+            ];
         }
-        if (isset($parsedArrayOfFileOne[$itemKey]) && isset($parsedArrayOfFileTwo[$itemKey])) {
-            if ($parsedArrayOfFileOne[$itemKey] === $parsedArrayOfFileTwo[$itemKey]) {
-                $itemValue = typeValueToString($parsedArrayOfFileOne[$itemKey]);
-                $resultString .= "    {$itemKey}: {$itemValue}\n";
+        if (array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+            if (is_array($parsedArrayOfFileOne[$itemKey]) && is_array($parsedArrayOfFileTwo[$itemKey])) {
+                $childArr = findDiff($parsedArrayOfFileOne[$itemKey], $parsedArrayOfFileTwo[$itemKey]);
+                $resultArr[] = [
+                    "key" => $itemKey,
+                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                    "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
+                    "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
+                    "children" => $childArr,
+                    "cmpResult" => 3
+                ];
+            } elseif (!is_array($parsedArrayOfFileOne[$itemKey]) && !is_array($parsedArrayOfFileTwo[$itemKey])) {
+                if ($parsedArrayOfFileOne[$itemKey] === $parsedArrayOfFileTwo[$itemKey]) {
+                    $resultArr[] = [
+                        "key" => $itemKey,
+                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                        "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
+                        "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
+                        "children" => null,
+                        "cmpResult" => 3
+                    ];
+                } else {
+                    $resultArr[] = [
+                        "key" => $itemKey,
+                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                        "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
+                        "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
+                        "children" => null,
+                        "cmpResult" => 4
+                    ];
+                }
             } else {
-                $itemValueOne = typeValueToString($parsedArrayOfFileOne[$itemKey]);
-                $itemValueTwo = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
-                $resultString .= "  - {$itemKey}: {$itemValueOne}\n";
-                $resultString .= "  + {$itemKey}: {$itemValueTwo}\n";
+                $resultArr[] = [
+                    "key" => $itemKey,
+                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                    "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
+                    "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
+                    "children" => null,
+                    "cmpResult" => 4
+                ];
             }
         }
     }
-    $resultString .= "}";
+    return $resultArr;
+}
 
-    return $resultString;
+function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
+{
+    $outputResult = '';
+
+    $parsedFileOneArray = Parsers\parseFile($pathToFile1);
+    $parsedFileTwoArray = Parsers\parseFile($pathToFile2);
+
+    $genDiffArray = findDiff($parsedFileOneArray, $parsedFileTwoArray);
+
+    $outputResult = Formatters\chooseFormatter($genDiffArray, $formatName);
+
+    return $outputResult;
 }

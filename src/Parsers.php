@@ -4,9 +4,17 @@ namespace php\project\lvl2\src\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function typeValueToString($value)
+function ConvertSTDObjectToArray($objToConvert)
 {
-     return trim(var_export($value, true), "'");
+    $convertedArray = get_object_vars($objToConvert);
+
+    foreach ($convertedArray as $convKey => $convValue) {
+        if (is_object($convValue)) {
+            $convertedArray[$convKey] = ConvertSTDObjectToArray($convValue);
+        }
+    }
+
+    return $convertedArray;
 }
 
 function parseFile($pathToFile)
@@ -22,9 +30,7 @@ function parseFile($pathToFile)
     }
     if ($fileParts['extension'] === 'yml') {
         $fileObj = Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP);
-        echo "\n--------------------------What is here YAML object---------------------------\n";
-        var_dump($fileObj);
-        $fileArray = get_object_vars($fileObj);
+        $fileArray = ConvertSTDObjectToArray($fileObj);
     }
 
     var_dump($fileArray);
