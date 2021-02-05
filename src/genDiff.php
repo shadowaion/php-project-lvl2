@@ -97,5 +97,6 @@ function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
 
     $outputResult = Formatters\chooseFormatter($genDiffArray, $formatName);
 
+    return "genDiff";
     return $outputResult;
 }
