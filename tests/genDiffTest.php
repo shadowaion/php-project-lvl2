@@ -35,6 +35,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->jsonOne), $this->getFilePath($this->jsonTwo));
 
         self::assertEquals($plainData, $genDiff);
+
+        return "Test 1";
     }
 
     public function testGenDiffYAMLPlain()
@@ -44,6 +46,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->yamlOne), $this->getFilePath($this->yamlTwo));
 
         self::assertEquals($plainData, $genDiff);
+
+        return "Test 2";
     }
 
     public function testGenDiffJSONNested()
@@ -53,6 +57,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "stylish");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 3";
     }
 
     public function testGenDiffYAMLNested()
@@ -62,6 +68,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedYamlOne), $this->getFilePath($this->nestedYamlTwo), "stylish");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 4";
     }
 
     public function testGenDiffJSONNestedPlainFormat()
@@ -71,6 +79,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "plain");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 5";
     }
 
     public function testGenDiffYAMLNestedPlainFormat()
@@ -80,6 +90,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedYamlOne), $this->getFilePath($this->nestedYamlTwo), "plain");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 6";
     }
 
     public function testGenDiffJSONNestedJsonFormat()
@@ -89,6 +101,8 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "json");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 7";
     }
 
     public function testGenDiffYAMLNestedJsonFormat()
@@ -98,5 +112,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedYamlOne), $this->getFilePath($this->nestedYamlTwo), "json");
 
         self::assertEquals($nestedData, $genDiff);
+
+        return "Test 8";
     }
 }
