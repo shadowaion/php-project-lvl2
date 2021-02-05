@@ -77,7 +77,7 @@ function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
                     }
                     
                 } else {
-                    $childString = json($arr['children'], $nextNestedLvl);
+                    $childString = jsonFormat($arr['children'], $nextNestedLvl);
                     $resultString .= "{$spaces}    \"{$keyOfStructure}\": {$childString}\n";
                 }
                 break;
