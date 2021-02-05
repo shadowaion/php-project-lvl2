@@ -29,7 +29,7 @@ function typeJsonNestedString($arrayToType, $nestedLevel)
     return $resultString;
 }
 
-function json($arrayToOutAsString, $nestedLevel = 0)
+function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
 {
     $resultString = '';
     $nextNestedLvl = $nestedLevel + 1;

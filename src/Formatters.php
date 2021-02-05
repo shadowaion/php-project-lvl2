@@ -19,7 +19,7 @@ function chooseFormatter($genDiffArray, $formatName)
             $outputResult = Plain\plain($genDiffArray);
             break;
         case "json":
-            $outputResult = Json\json($genDiffArray);
+            $outputResult = Json\jsonFormat($genDiffArray);
             break;
     }
 
