@@ -17,7 +17,7 @@ function ConvertSTDObjectToArray($objToConvert): array
     return $convertedArray;
 }
 
-function parseFile($pathToFile): array
+function parseFile($pathToFile)
 {
 
     if (pathinfo($pathToFile)['extension'] === 'json') {
