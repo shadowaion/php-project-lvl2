@@ -34,7 +34,7 @@ function typeJsonNestedString($arrayToType, $nestedLevel)
     return $resultString;
 }
 
-function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
+function jsonFormat1($arrayToOutAsString, $nestedLevel = 0)
 {
     $resultString = '';
     $nextNestedLvl = $nestedLevel + 1;
@@ -212,4 +212,9 @@ function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
     $resultString .= "{$spaces}}";
 
     return $resultString;
+}
+
+function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
+{
+    return json_encode ($arrayToOutAsString, JSON_PRETTY_PRINT);
 }
