@@ -96,6 +96,6 @@ function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
     $genDiffArray = findDiff($parsedFileOneArray, $parsedFileTwoArray);
 
     $outputResult = Formatters\chooseFormatter($genDiffArray, $formatName);
-    //echo "genDiff function";
+    
     return $outputResult;
 }
