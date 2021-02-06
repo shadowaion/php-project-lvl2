@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . './../vendor/autoload.php';
 
 use php\project\lvl2\src\Differ;
 
@@ -19,8 +19,6 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
-//echo "\n-------1--------\n";
-
 $params = array(
     'argv'=>array_slice($_SERVER['argv'], 1),
     'help'=>true,
@@ -35,8 +33,8 @@ $pathToFile2 = '';
 
 if ($argsArray[0] === "--format" || $argsArray[0] === "--f") {
   $formatName = $argsArray[1];
-  $pathToFile1 = $argsArray[2];//"./../testFiles/file1.json";
-  $pathToFile2 = $argsArray[3];//"./../testFiles/file2.json";
+  $pathToFile1 = $argsArray[2];
+  $pathToFile2 = $argsArray[3];
 } else {
   $formatName = '';
   $pathToFile1 = $argsArray[0];
@@ -46,7 +44,5 @@ if ($argsArray[0] === "--format" || $argsArray[0] === "--f") {
 $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
 echo $outputString;
-
-return $outputString;
 
 $args = Docopt::handle($doc, $params);
