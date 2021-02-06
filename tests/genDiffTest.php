@@ -21,7 +21,6 @@ class GenDiffTest extends TestCase
     private $expectedNestedDataFile = "nested.txt";
     private $expectedPlainFormatNestedDataFile = "nestedPlainFormatter.txt";
     private $expectedJsonFormatNestedDataFile = "jsonFormat.txt";
-    
 
     private function getFilePath($name)
     {
