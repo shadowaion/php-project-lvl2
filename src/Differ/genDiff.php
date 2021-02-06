@@ -1,6 +1,6 @@
 <?php
 
-namespace php\project\lvl2\src\Differ\Differ;
+namespace Differ\Differ;
 
 use php\project\lvl2\src\Parsers;
 use php\project\lvl2\src\Formatters;
