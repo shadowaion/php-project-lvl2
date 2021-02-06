@@ -35,7 +35,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->jsonOne), $this->getFilePath($this->jsonTwo));
 
         self::assertEquals($plainData, $genDiff);
-
+        echo "Test 1";
         return "Test 1";
     }
 
@@ -46,7 +46,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->yamlOne), $this->getFilePath($this->yamlTwo));
 
         self::assertEquals($plainData, $genDiff);
-
+        echo "Test 2";
         return "Test 2";
     }
 
@@ -57,7 +57,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "stylish");
 
         self::assertEquals($nestedData, $genDiff);
-
+        echo "Test 3";
         return "Test 3";
     }
 
@@ -69,6 +69,7 @@ class genDiffTest extends TestCase
 
         self::assertEquals($nestedData, $genDiff);
 
+        echo "Test 4";
         return "Test 4";
     }
 
@@ -79,7 +80,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "plain");
 
         self::assertEquals($nestedData, $genDiff);
-
+        echo "Test 5";
         return "Test 5";
     }
 
@@ -90,7 +91,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedYamlOne), $this->getFilePath($this->nestedYamlTwo), "plain");
 
         self::assertEquals($nestedData, $genDiff);
-
+        echo "Test 6";
         return "Test 6";
     }
 
@@ -101,7 +102,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedJsonOne), $this->getFilePath($this->nestedJsonTwo), "json");
 
         self::assertEquals($nestedData, $genDiff);
-
+        echo "Test 7";
         return "Test 7";
     }
 
@@ -112,7 +113,7 @@ class genDiffTest extends TestCase
         $genDiff = genDiff($this->getFilePath($this->nestedYamlOne), $this->getFilePath($this->nestedYamlTwo), "json");
 
         self::assertEquals($nestedData, $genDiff);
-
+        echo "Test 8";
         return "Test 8";
     }
 }

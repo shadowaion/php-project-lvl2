@@ -47,7 +47,6 @@ $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 
 echo $outputString;
 
-return "genDiff";
 return $outputString;
 
 $args = Docopt::handle($doc, $params);
