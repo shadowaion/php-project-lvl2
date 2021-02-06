@@ -30,18 +30,20 @@ $argsArray = $params['argv'];
 $formatName = '';
 $pathToFile1 = '';
 $pathToFile2 = '';
+$outputString = '';
 
 if ($argsArray[0] === "--format" || $argsArray[0] === "--f") {
   $formatName = $argsArray[1];
   $pathToFile1 = $argsArray[2];
   $pathToFile2 = $argsArray[3];
+  $outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
 } else {
-  $formatName = '';
   $pathToFile1 = $argsArray[0];
   $pathToFile2 = $argsArray[1];
+  $outputString = Differ\genDiff($pathToFile1, $pathToFile2);
 }
 
-$outputString = Differ\genDiff($pathToFile1, $pathToFile2, $formatName);
+
 
 echo $outputString;
 
