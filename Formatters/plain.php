@@ -15,7 +15,7 @@ function plain($arrayToOutAsString, $parentsRoute = '')
         $currentParentsRoute = "";
 
         $currentParentsRoute = empty($parentsRoute) ? $keyOfStructure : "{$parentsRoute}.{$keyOfStructure}";
-        
+
         switch ($arr['cmpResult']) {
             case 1:
                 if ($arr['children'] === null && !is_array($firstValueOfStructure)) {
@@ -28,7 +28,8 @@ function plain($arrayToOutAsString, $parentsRoute = '')
                 if ($arr['children'] === null && !is_array($secondValueOfStructure)) {
                     $stringifyValue = typeValueToString($secondValueOfStructure);
                     if ($arr['secondValueType'] === 'string') {
-                        $resultString .= "Property '{$currentParentsRoute}' was added with value: '{$stringifyValue}'\n";
+                        $line = "Property '{$currentParentsRoute}' was added with value: '{$stringifyValue}'\n";
+                        $resultString .= $line;
                     } else {
                         $resultString .= "Property '{$currentParentsRoute}' was added with value: {$stringifyValue}\n";
                     }
@@ -69,6 +70,7 @@ function plain($arrayToOutAsString, $parentsRoute = '')
         }
     }
 
-    $trimmedResult = rtrim ($resultString);
+    $trimmedResult = rtrim($resultString);
+
     return $trimmedResult;
 }

@@ -85,7 +85,7 @@ function jsonFormat1($arrayToOutAsString, $nestedLevel = 0)
         //             } else {
         //                 $resultString .= "{$spaces}    \"{$keyOfStructure}\": {$stringifyValue}\n";
         //             }
-                    
+
         //         } else {
         //             $childString = jsonFormat($arr['children'], $nextNestedLvl);
         //             $resultString .= "{$spaces}    \"{$keyOfStructure}\": {$childString}\n";
@@ -170,7 +170,6 @@ function jsonFormat1($arrayToOutAsString, $nestedLevel = 0)
                     } else {
                         $resultString .= "{$nextSpaces}    \"Value\": {$stringifyValue}\n";
                     }
-                    
                 } else {
                     $childString = jsonFormat($arr['children'], $nextNestedLvlAsArg);
                     $resultString .= "{$nextSpaces}    \"Value\": {$childString}\n";
@@ -216,5 +215,5 @@ function jsonFormat1($arrayToOutAsString, $nestedLevel = 0)
 
 function jsonFormat($arrayToOutAsString, $nestedLevel = 0)
 {
-    return json_encode ($arrayToOutAsString, JSON_PRETTY_PRINT);
+    return json_encode($arrayToOutAsString, JSON_PRETTY_PRINT);
 }

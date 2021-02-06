@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
 
-class genDiffTest extends TestCase
+class GenDiffTest extends TestCase
 {
     private $path = __DIR__ . "/fixtures/";
     private $jsonOne = "fileJSON1.json";
