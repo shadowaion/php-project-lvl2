@@ -4,7 +4,7 @@ namespace php\project\lvl2\Formatters\Plain;
 
 use function php\project\lvl2\src\Functions\typeValueToString;
 
-function plain($arrayToOutAsString, $parentsRoute = '')
+function plain($arrayToOutAsString, $parentsRoute = ''): string
 {
     $resultString = '';
 

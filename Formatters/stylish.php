@@ -4,7 +4,7 @@ namespace php\project\lvl2\Formatters\Stylish;
 
 use function php\project\lvl2\src\Functions\typeValueToString;
 
-function typeStylishNestedString($arrayToType, $nestedLevel)
+function typeStylishNestedString($arrayToType, $nestedLevel): string
 {
     $resultString = '';
     $nextNestedLvl = $nestedLevel + 1;
@@ -25,7 +25,7 @@ function typeStylishNestedString($arrayToType, $nestedLevel)
     return $resultString;
 }
 
-function stylish($arrayToOutAsString, $nestedLevel = 0)
+function stylish($arrayToOutAsString, $nestedLevel = 0): string
 {
     $resultString = '';
     $nextNestedLvl = $nestedLevel + 1;

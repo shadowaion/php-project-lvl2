@@ -7,7 +7,7 @@ use php\project\lvl2\src\Formatters;
 
 use function php\project\lvl2\src\Functions\typeValueToString;
 
-function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
+function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
 {
     $resultArr = [];
 
@@ -86,7 +86,7 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo)
     return $resultArr;
 }
 
-function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
+function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish"): string
 {
     $outputResult = '';
 

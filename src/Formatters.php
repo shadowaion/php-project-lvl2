@@ -6,19 +6,17 @@ use php\project\lvl2\Formatters\Stylish;
 use php\project\lvl2\Formatters\Plain;
 use php\project\lvl2\Formatters\Json;
 
-function chooseFormatter($genDiffArray, $formatName)
+function chooseFormatter($genDiffArray, $formatName): string
 {
-    $outputResult = '';
-
     switch ($formatName) {
         case "stylish":
-            $outputResult = Stylish\stylish($genDiffArray);
+            return Stylish\stylish($genDiffArray);
             break;
         case "plain":
-            $outputResult = Plain\plain($genDiffArray);
+            return Plain\plain($genDiffArray);
             break;
         case "json":
-            $outputResult = Json\jsonFormat($genDiffArray);
+            return Json\jsonFormat($genDiffArray);
             break;
     }
 

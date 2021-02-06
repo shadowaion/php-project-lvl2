@@ -4,7 +4,7 @@ namespace php\project\lvl2\src\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function ConvertSTDObjectToArray($objToConvert)
+function ConvertSTDObjectToArray($objToConvert): array
 {
     $convertedArray = get_object_vars($objToConvert);
 
@@ -17,18 +17,14 @@ function ConvertSTDObjectToArray($objToConvert)
     return $convertedArray;
 }
 
-function parseFile($pathToFile)
+function parseFile($pathToFile): array
 {
-    $fileArray = [];
-    $fileParts = pathinfo($pathToFile);
-    $fileContent = file_get_contents($pathToFile);
 
-    if ($fileParts['extension'] === 'json') {
-        $fileArray = json_decode($fileContent, true);
+    if (pathinfo($pathToFile)['extension'] === 'json') {
+        return json_decode(file_get_contents($pathToFile), true);
     }
-    if ($fileParts['extension'] === 'yml' || $fileParts['extension'] === 'yaml') {
-        $fileObj = Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP);
-        $fileArray = ConvertSTDObjectToArray($fileObj);
+    if (pathinfo($pathToFile)['extension'] === 'yml' || pathinfo($pathToFile)['extension'] === 'yaml') {
+        return ConvertSTDObjectToArray(Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP));
     }
 
     return $fileArray;
