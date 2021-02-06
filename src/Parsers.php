@@ -19,12 +19,11 @@ function ConvertSTDObjectToArray($objToConvert): array
 
 function parseFile($pathToFile)
 {
-
     if (pathinfo($pathToFile)['extension'] === 'json') {
         return json_decode(file_get_contents($pathToFile), true);
     }
     if (pathinfo($pathToFile)['extension'] === 'yml' || pathinfo($pathToFile)['extension'] === 'yaml') {
-        return ConvertSTDObjectToArray(Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP));
+        return ConvertSTDObjectToArray(Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP));
     }
 
     return $fileArray;
