@@ -14,7 +14,7 @@
     },
     "autoload": {
         "files": [
-            "src/genDiff.php",
+            "src/Differ/genDiff.php",
             "src/Parsers.php",
             "src/Formatters.php",
             "src/Functions.php",
