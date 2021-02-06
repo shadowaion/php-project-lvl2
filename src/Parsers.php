@@ -26,7 +26,7 @@ function parseFile($pathToFile)
     if ($fileParts['extension'] === 'json') {
         $fileArray = json_decode($fileContent, true);
     }
-    if ($fileParts['extension'] === 'yml') {
+    if ($fileParts['extension'] === 'yml' || $fileParts['extension'] === 'yaml') {
         $fileObj = Yaml::parse($fileContent, Yaml::PARSE_OBJECT_FOR_MAP);
         $fileArray = ConvertSTDObjectToArray($fileObj);
     }

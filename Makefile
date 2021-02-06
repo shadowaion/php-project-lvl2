@@ -1,7 +1,7 @@
 install:
 	composer install
 lint:
-	composer run-script phpcs -- --standard=PSR12 src gendiff
+	composer run-script phpcs -- --standard=PSR12 src bin
 genDiffPlainDataJson:
 	./bin/gendiff ./tests/fixtures/fileJSON1.json ./tests/fixtures/fileJSON2.json
 genDiffPlainDataYaml:
