@@ -1,6 +1,6 @@
 <?php
 
-namespace php\project\lvl2\src\Differ;
+namespace php\project\lvl2\src\Differ\Differ;
 
 use php\project\lvl2\src\Parsers;
 use php\project\lvl2\src\Formatters;
@@ -96,6 +96,6 @@ function genDiff($pathToFile1, $pathToFile2, $formatName = "stylish")
     $genDiffArray = findDiff($parsedFileOneArray, $parsedFileTwoArray);
 
     $outputResult = Formatters\chooseFormatter($genDiffArray, $formatName);
-    
+
     return $outputResult;
 }
