@@ -4,7 +4,7 @@ namespace php\project\lvl2\src\Functions;
 
 use php\project\lvl2\src\Functions;
 
-function typeValueToString($value)
+function typeValueToString($value): string
 {
     if (!is_array($value)) {
         $result = trim(var_export($value, true), "'");
