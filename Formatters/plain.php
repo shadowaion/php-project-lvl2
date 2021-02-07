@@ -76,7 +76,7 @@ function plain($arrayToOutAsString, $parentsRoute = ''): string
                 }
                 break;
         }
-        return "Something gone wrong!";
+        return '';
     }, $arrayToOutAsString);
 
     $resultString = implode('', $resultArray);
