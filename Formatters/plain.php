@@ -12,7 +12,7 @@ function plain($arrayToOutAsString, $parentsRoute = ''): string
         $keyOfStructure = $arr['key'];
         $firstValueOfStructure = $arr['firstArrValue'];
         $secondValueOfStructure = $arr['secondArrValue'];
-        $currentParentsRoute = "";
+        $currentParentsRoute;
 
         $currentParentsRoute = empty($parentsRoute) ? $keyOfStructure : "{$parentsRoute}.{$keyOfStructure}";
 
