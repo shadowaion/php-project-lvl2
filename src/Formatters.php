@@ -18,5 +18,4 @@ function chooseFormatter($genDiffArray, $formatName): string
         default:
             return Stylish\stylish($genDiffArray);
     }
-    return '';
 }

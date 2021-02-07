@@ -39,7 +39,6 @@ function typeStylishNestedString($arrayToType, $nestedLevel): string
 
 function stylish($arrayToOutAsString, $nestedLevel = 0): string
 {
-    $resultString = '';
     $nextNestedLvl = $nestedLevel + 1;
     $spaces = str_repeat("    ", $nestedLevel);
 
@@ -75,7 +74,6 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
                     $childString = stylish($arr['children'], $nextNestedLvl);
                     return "{$spaces}    {$keyOfStructure}: {$childString}\n";
                 }
-                break;
             case 4:
                 if ($arr['children'] === null) {
                     if (!is_array($firstValueOfStructure)) {
