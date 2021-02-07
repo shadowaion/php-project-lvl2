@@ -134,18 +134,19 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
                 if ($arr['children'] === null) {
                     if (!is_array($firstValueOfStructure)) {
                         $stringifyValue = typeValueToString($firstValueOfStructure);
-                        return "{$spaces}  - {$keyOfStructure}: {$stringifyValue}\n";
+                        $partOne = "{$spaces}  - {$keyOfStructure}: {$stringifyValue}\n";
                     } else {
                         $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
-                        return "{$spaces}  - {$keyOfStructure}: {$childString}\n";
+                        $partOne = "{$spaces}  - {$keyOfStructure}: {$childString}\n";
                     }
                     if (!is_array($secondValueOfStructure)) {
                         $stringifyValue = typeValueToString($secondValueOfStructure);
-                        return "{$spaces}  + {$keyOfStructure}: {$stringifyValue}\n";
+                        $partTwo = "{$spaces}  + {$keyOfStructure}: {$stringifyValue}\n";
                     } else {
                         $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
-                        return "{$spaces}  + {$keyOfStructure}: {$childString}\n";
+                        $partTwo = "{$spaces}  + {$keyOfStructure}: {$childString}\n";
                     }
+                    return "{$partOne}{$partTwo}";
                 }
                 break;
         }
