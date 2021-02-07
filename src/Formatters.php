@@ -15,6 +15,8 @@ function chooseFormatter($genDiffArray, $formatName): string
             return Plain\plain($genDiffArray);
         case "json":
             return Json\jsonFormat($genDiffArray);
+        default:
+            return Stylish\stylish($genDiffArray);
     }
     return '';
 }
