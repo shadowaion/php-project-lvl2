@@ -12,5 +12,4 @@ function jsonFormat($arrayToOutAsString): string
     } else {
         return typeValueToString($jsonEncodeResult);
     }
-    return $jsonEncodeResult;
 }

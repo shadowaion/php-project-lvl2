@@ -34,7 +34,7 @@ function getValue2($secondValueOfStructure, $secondValueType): string
 
 function plain($arrayToOutAsString, $parentsRoute = ''): string
 {
-    $resultArray = array_map(function ($arr) use ($parentsRoute) {
+    $resultArray = array_map(function ($arr) use ($parentsRoute): string {
         $keyOfStructure = $arr['key'];
         $firstValueOfStructure = $arr['firstArrValue'];
         $secondValueOfStructure = $arr['secondArrValue'];
