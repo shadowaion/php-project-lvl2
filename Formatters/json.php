@@ -6,5 +6,5 @@ use function php\project\lvl2\src\Functions\typeValueToString;
 
 function jsonFormat($arrayToOutAsString): string
 {
-    return json_encode($arrayToOutAsString, JSON_PRETTY_PRINT) ?: '';
+    return json_encode($arrayToOutAsString, JSON_PRETTY_PRINT) ?? '';
 }

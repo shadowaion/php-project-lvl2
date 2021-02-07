@@ -11,14 +11,10 @@ function chooseFormatter($genDiffArray, $formatName): string
     switch ($formatName) {
         case "stylish":
             return Stylish\stylish($genDiffArray);
-            break;
         case "plain":
             return Plain\plain($genDiffArray);
-            break;
         case "json":
             return Json\jsonFormat($genDiffArray);
-            break;
     }
-
-    return $outputResult;
+    return '';
 }
