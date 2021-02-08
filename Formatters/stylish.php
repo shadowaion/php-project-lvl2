@@ -42,7 +42,7 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
         switch ($arr['cmpResult']) {
             case 1:
                 if ($arr['children'] === null && !is_array($firstValueOfStructure)) {
-                    $stringifyValue = typeValueToString($firstValueOfStructure);
+                    [$stringifyValue] = typeValueToString($firstValueOfStructure);
                     return "{$spaces}  - {$keyOfStructure}: {$stringifyValue}\n";
                 } elseif ($arr['children'] === null && is_array($firstValueOfStructure)) {
                     $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
@@ -51,7 +51,7 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
                 break;
             case 2:
                 if ($arr['children'] === null && !is_array($secondValueOfStructure)) {
-                    $stringifyValue = typeValueToString($secondValueOfStructure);
+                    [$stringifyValue] = typeValueToString($secondValueOfStructure);
                     return "{$spaces}  + {$keyOfStructure}: {$stringifyValue}\n";
                 } elseif ($arr['children'] === null && is_array($secondValueOfStructure)) {
                     $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);
@@ -60,7 +60,7 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
                 break;
             case 3:
                 if ($arr['children'] === null) {
-                    $stringifyValue = typeValueToString($firstValueOfStructure);
+                    [$stringifyValue] = typeValueToString($firstValueOfStructure);
                     return "{$spaces}    {$keyOfStructure}: {$stringifyValue}\n";
                 } else {
                     $childString = stylish($arr['children'], $nextNestedLvl);
@@ -69,14 +69,14 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
             case 4:
                 if ($arr['children'] === null) {
                     if (!is_array($firstValueOfStructure)) {
-                        $stringifyValue = typeValueToString($firstValueOfStructure);
+                        [$stringifyValue] = typeValueToString($firstValueOfStructure);
                         $partOne = "{$spaces}  - {$keyOfStructure}: {$stringifyValue}\n";
                     } else {
                         $childString = typeStylishNestedString($firstValueOfStructure, $nextNestedLvl);
                         $partOne = "{$spaces}  - {$keyOfStructure}: {$childString}\n";
                     }
                     if (!is_array($secondValueOfStructure)) {
-                        $stringifyValue = typeValueToString($secondValueOfStructure);
+                        [$stringifyValue] = typeValueToString($secondValueOfStructure);
                         $partTwo = "{$spaces}  + {$keyOfStructure}: {$stringifyValue}\n";
                     } else {
                         $childString = typeStylishNestedString($secondValueOfStructure, $nextNestedLvl);

@@ -4,16 +4,16 @@ namespace php\project\lvl2\src\Functions;
 
 use php\project\lvl2\src\Functions;
 
-function typeValueToString($value)
+function typeValueToString($value): array
 {
     if (!is_array($value)) {
         $result = trim(var_export($value, true), "'");
         if ($result === 'NULL') {
-            return strtolower($result);
+            return [strtolower($result)];
         }
-        return trim(var_export($value, true), "'");
+        return [$result];
     }
-    return $value;
+    return [$value];
 }
 
 // function arrayToCustomArray($value): array

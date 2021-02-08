@@ -39,7 +39,8 @@ function parseFile($pathToFile): array
         $positionOfPoint = (int) strrpos($pathToFile, '.') + 1;
         $extention = substr($pathToFile, $positionOfPoint);
         if ($extention === 'json') {
-            return json_decode(file_get_contents($pathToFile), true) ?? [];
+            $contentOfFile = (string) file_get_contents($pathToFile);
+            return json_decode($contentOfFile, true) ?? [];
         }
         if ($extention === 'yml' || $extention === 'yaml') {
             $contentOfFile = (string) file_get_contents($pathToFile);

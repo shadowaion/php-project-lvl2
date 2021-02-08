@@ -9,15 +9,15 @@ use function php\project\lvl2\src\Functions\typeValueToString;
 
 function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
 {
-    $resultArr = [];
-
     $arrayMergedKeysArr = array_merge($parsedArrayOfFileOne, $parsedArrayOfFileTwo);
     ksort($arrayMergedKeysArr);
-    foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
+    $keysArray = array_keys($arrayMergedKeysArr);
+    $resultArr = array_map(function ($itemKey) use ($arrayMergedKeysArr) {
         if (array_key_exists($itemKey, $parsedArrayOfFileOne) && !array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
+            [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
             $resultArr[] = [
                 "key" => $itemKey,
-                "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
+                "firstArrValue" => $firstValue,
                 "secondArrValue" => null,
                 "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
                 "secondValueType" => null,
@@ -26,10 +26,11 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
             ];
         }
         if (!array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
-            $resultArr[] = [
+            [$secondValue] = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
+            return [
                 "key" => $itemKey,
                 "firstArrValue" => null,
-                "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                "secondArrValue" => $secondValue,
                 "firstValueType" => null,
                 "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
                 "children" => null,
@@ -38,11 +39,13 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
         }
         if (array_key_exists($itemKey, $parsedArrayOfFileOne) && array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
             if (is_array($parsedArrayOfFileOne[$itemKey]) && is_array($parsedArrayOfFileTwo[$itemKey])) {
+                [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
+                [$secondValue] = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
                 $childArr = findDiff($parsedArrayOfFileOne[$itemKey], $parsedArrayOfFileTwo[$itemKey]);
-                $resultArr[] = [
+                return [
                     "key" => $itemKey,
-                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
-                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                    "firstArrValue" => $firstValue,
+                    "secondArrValue" => $secondValue,
                     "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
                     "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
                     "children" => $childArr,
@@ -50,20 +53,24 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
                 ];
             } elseif (!is_array($parsedArrayOfFileOne[$itemKey]) && !is_array($parsedArrayOfFileTwo[$itemKey])) {
                 if ($parsedArrayOfFileOne[$itemKey] === $parsedArrayOfFileTwo[$itemKey]) {
-                    $resultArr[] = [
+                    [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
+                    [$secondValue] = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
+                    return [
                         "key" => $itemKey,
-                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
-                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                        "firstArrValue" => $firstValue,
+                        "secondArrValue" => $secondValue,
                         "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
                         "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
                         "children" => null,
                         "cmpResult" => 3
                     ];
                 } else {
-                    $resultArr[] = [
+                    [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
+                    [$secondValue] = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
+                    return [
                         "key" => $itemKey,
-                        "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
-                        "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                        "firstArrValue" => $firstValue,
+                        "secondArrValue" => $secondValue,
                         "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
                         "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
                         "children" => null,
@@ -71,10 +78,12 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
                     ];
                 }
             } else {
-                $resultArr[] = [
+                [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
+                [$secondValue] = typeValueToString($parsedArrayOfFileTwo[$itemKey]);
+                return [
                     "key" => $itemKey,
-                    "firstArrValue" => typeValueToString($parsedArrayOfFileOne[$itemKey]),
-                    "secondArrValue" => typeValueToString($parsedArrayOfFileTwo[$itemKey]),
+                    "firstArrValue" => $firstValue,
+                    "secondArrValue" => $secondValue,
                     "firstValueType" => gettype($parsedArrayOfFileOne[$itemKey]),
                     "secondValueType" => gettype($parsedArrayOfFileTwo[$itemKey]),
                     "children" => null,
@@ -82,7 +91,10 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
                 ];
             }
         }
-    }
+    }, $keysArray)
+    // foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
+        
+    // }
     return $resultArr;
 }
 
