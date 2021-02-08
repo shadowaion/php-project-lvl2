@@ -8,18 +8,34 @@ function ConvertSTDObjectToArray($objToConvert): array
 {
     $convertedArray = get_object_vars($objToConvert);
 
-    foreach ($convertedArray as $convKey => $convValue) {
-        if (is_object($convValue)) {
-            $convertedArray[$convKey] = ConvertSTDObjectToArray($convValue);
-        }
-    }
+    $keysArray = array_keys($convertedArray);
+    $resultArray = array_map(function ($itemKey) use ($convertedArray): array {
+        $itemValue = $arrayToType[$itemKey];
 
-    return $convertedArray;
+        if (is_object($convValue)) {
+            return [$itemKey => ConvertSTDObjectToArray($itemValue)];
+        } else {
+            return [$itemKey => $itemValue];
+        }
+    }, $keysArray);
+
+    return array_merge([], ...$resultArray);
+
+    // foreach ($convertedArray as $convKey => $convValue) {
+    //     if (is_object($convValue)) {
+    //         $convertedArray[$convKey] = ConvertSTDObjectToArray($convValue);
+    //     }
+    //     if (is_object($convValue)) {
+    //         $convertedArray[] = [$convKey => ConvertSTDObjectToArray($convValue)];
+    //     }
+    // }
+
+    // return $convertedArray;
 }
 
-function parseFile($pathToFile)
+function parseFile($pathToFile): array
 {
-    if (!empty($pathToFile)) {
+    if ($pathToFile !== '' || $pathToFile !== null) {
         if (pathinfo($pathToFile)['extension'] === 'json') {
             return json_decode(file_get_contents($pathToFile), true);
         }

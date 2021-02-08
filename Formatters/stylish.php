@@ -14,7 +14,7 @@ function typeStylishNestedString($arrayToType, $nestedLevel): string
 
     $startBracket = "{\n";
     $keysArray = array_keys($arrayToType);
-    $resultArray = array_map(function ($itemKey) use ($arrayToType, $nextNestedLvl, $nextSpaces) {
+    $resultArray = array_map(function ($itemKey) use ($arrayToType, $nextNestedLvl, $nextSpaces): string {
         $itemValue = $arrayToType[$itemKey];
 
         if (is_array($arrayToType[$itemKey])) {
@@ -25,14 +25,6 @@ function typeStylishNestedString($arrayToType, $nestedLevel): string
         }
     }, $keysArray);
     $resultString = implode('', $resultArray);
-    // foreach ($arrayToType as $itemKey => $itemValue) {
-    //     if (is_array($itemValue)) {
-    //         $childString = typeStylishNestedString($itemValue, $nextNestedLvl);
-    //         $resultString .= "{$nextSpaces}{$itemKey}: {$childString}\n";
-    //     } else {
-    //         $resultString .= "{$nextSpaces}{$itemKey}: {$itemValue}\n";
-    //     }
-    // }
     $endBracket = "{$currSpaces}}";
     return "{$startBracket}{$resultString}{$endBracket}";
 }
