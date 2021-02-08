@@ -12,10 +12,10 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
     $arrayMergedKeysArr = array_merge($parsedArrayOfFileOne, $parsedArrayOfFileTwo);
     ksort($arrayMergedKeysArr);
     $keysArray = array_keys($arrayMergedKeysArr);
-    $resultArr = array_map(function ($itemKey) use ($arrayMergedKeysArr) {
+    $resultArr = array_map(function ($itemKey) use ($arrayMergedKeysArr, $parsedArrayOfFileOne, $parsedArrayOfFileTwo) {
         if (array_key_exists($itemKey, $parsedArrayOfFileOne) && !array_key_exists($itemKey, $parsedArrayOfFileTwo)) {
             [$firstValue] = typeValueToString($parsedArrayOfFileOne[$itemKey]);
-            $resultArr[] = [
+            return [
                 "key" => $itemKey,
                 "firstArrValue" => $firstValue,
                 "secondArrValue" => null,
@@ -93,7 +93,6 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
         }
     }, $keysArray);
     // foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
-        
     // }
     return $resultArr;
 }

@@ -35,7 +35,8 @@ function stylish($arrayToOutAsString, $nestedLevel = 0): string
     $spaces = str_repeat("    ", $nestedLevel);
 
     $startBracket = "{\n";
-    $resultArray = array_map(function ($arr) use ($spaces, $nextNestedLvl): string {
+    $resultArray = array_map(function ($arr) use ($spaces, $nestedLevel, $nextNestedLvl): string {
+        print_r($arr);
         $keyOfStructure = $arr['key'];
         $firstValueOfStructure = $arr['firstArrValue'];
         $secondValueOfStructure = $arr['secondArrValue'];

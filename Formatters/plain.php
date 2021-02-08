@@ -7,7 +7,7 @@ use function php\project\lvl2\src\Functions\typeValueToString;
 function getValue1($firstValueOfStructure, $firstValueType, $currParRoute): string
 {
     if (!is_array($firstValueOfStructure)) {
-        $stringifyValue = typeValueToString($firstValueOfStructure);
+        [$stringifyValue] = typeValueToString($firstValueOfStructure);
         if ($firstValueType === 'string') {
             return "Property '{$currParRoute}' was updated. From '{$stringifyValue}' ";
         } else {
@@ -21,7 +21,7 @@ function getValue1($firstValueOfStructure, $firstValueType, $currParRoute): stri
 function getValue2($secondValueOfStructure, $secondValueType): string
 {
     if (!is_array($secondValueOfStructure)) {
-        $stringifyValue = typeValueToString($secondValueOfStructure);
+        [$stringifyValue] = typeValueToString($secondValueOfStructure);
         if ($secondValueType === 'string') {
             return "to '{$stringifyValue}'\n";
         } else {
@@ -51,7 +51,7 @@ function plain($arrayToOutAsString, $parentsRoute = ''): string
                 break;
             case 2:
                 if ($arr['children'] === null && !is_array($secondValueOfStructure)) {
-                    $stringifyValue = typeValueToString($secondValueOfStructure);
+                    [$stringifyValue] = typeValueToString($secondValueOfStructure);
                     if ($arr['secondValueType'] === 'string') {
                         $line = "Property '{$currentParentsRoute}' was added with value: '{$stringifyValue}'\n";
                         return $line;
