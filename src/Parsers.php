@@ -36,12 +36,14 @@ function ConvertSTDObjectToArray($objToConvert): array
 function parseFile($pathToFile): array
 {
     if ($pathToFile !== '') {
-        $extention = substr($pathToFile, strrpos($pathToFile, '.') + 1);
+        $positionOfPoint = strrpos($pathToFile, '.') + 1;
+        $extention = substr($pathToFile, $positionOfPoint);
         if ($extention === 'json') {
             return json_decode(file_get_contents($pathToFile), true);
         }
         if ($extention === 'yml' || $extention === 'yaml') {
-            return ConvertSTDObjectToArray(Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP));
+            $resultOfParse = Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP);
+            return ConvertSTDObjectToArray($resultOfParse);
         }
     }
 
