@@ -39,7 +39,7 @@ function parseFile($pathToFile): array
         $positionOfPoint = strrpos($pathToFile, '.');
         $extention = substr($pathToFile, $positionOfPoint + 1);
         if ($extention === 'json') {
-            return json_decode(file_get_contents($pathToFile), true);
+            return json_decode(file_get_contents($pathToFile), true) ?? [];
         }
         if ($extention === 'yml' || $extention === 'yaml') {
             $resultOfParse = Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP);
