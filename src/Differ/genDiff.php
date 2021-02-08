@@ -7,33 +7,6 @@ use php\project\lvl2\src\Formatters;
 
 use function php\project\lvl2\src\Functions\typeValueToString;
 
-// function immutableKeySort($arrayToSort, $compare = false, $p = 0) {
-//     $n = count($list);
-//     $tmp = null;
-//     $i = 0;
-
-//     if(!$compare){
-//       $compare = function($a,$b){ return $a > $b; };
-//     }
-
-//     if( $n < 2 ) { return $list;}
-
-//     $p = $p === 0 ? $n - 1 : $p - 1;
-
-//     while( $i <= $p - 1 ) {
-//       if($compare($list[$i],$list[$i+1])){
-//         $tmp = $list[$i];
-//         $list[$i] = $list[$i+1];
-//         $list[$i+1] = $tmp;
-//       }
-//       $i++;
-//     }
-
-//     if ( $p === 1 ){ return $list;}
-
-//     return immutableKeySort($list, $compare, $p);
-// }
-
 function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
 {
     $arrayMergedKeysArr = array_merge($parsedArrayOfFileOne, $parsedArrayOfFileTwo);
@@ -121,8 +94,7 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
         }
         return [];
     }, $keysArray);
-    // foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
-    // }
+
     return $resultArr;
 }
 

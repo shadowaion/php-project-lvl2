@@ -20,17 +20,6 @@ function ConvertSTDObjectToArray($objToConvert): array
     }, $keysArray);
 
     return array_merge([], ...$resultArray);
-
-    // foreach ($convertedArray as $convKey => $convValue) {
-    //     if (is_object($convValue)) {
-    //         $convertedArray[$convKey] = ConvertSTDObjectToArray($convValue);
-    //     }
-    //     if (is_object($convValue)) {
-    //         $convertedArray[] = [$convKey => ConvertSTDObjectToArray($convValue)];
-    //     }
-    // }
-
-    // return $convertedArray;
 }
 
 function parseFile($pathToFile): array

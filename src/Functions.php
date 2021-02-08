@@ -15,15 +15,3 @@ function typeValueToString($value): array
     }
     return [$value];
 }
-
-// function arrayToCustomArray($value): array
-// {
-//     if (!is_array($value)) {
-//         $result = trim(var_export($value, true), "'");
-//         if ($result === 'NULL') {
-//             return strtolower($result);
-//         }
-//         return trim(var_export($value, true), "'");
-//     }
-//     return $value;
-// }
