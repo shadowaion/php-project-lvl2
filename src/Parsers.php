@@ -36,8 +36,8 @@ function ConvertSTDObjectToArray($objToConvert): array
 function parseFile($pathToFile): array
 {
     if ($pathToFile !== '') {
-        $positionOfPoint = strrpos($pathToFile, '.');
-        $extention = substr($pathToFile, $positionOfPoint + 1);
+        $positionOfPoint = (int) strrpos($pathToFile, '.') + 1;
+        $extention = substr($pathToFile, $positionOfPoint);
         if ($extention === 'json') {
             return json_decode(file_get_contents($pathToFile), true) ?? [];
         }
