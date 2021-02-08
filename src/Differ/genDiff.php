@@ -11,15 +11,15 @@ use function php\project\lvl2\src\Functions\typeValueToString;
 //     $n = count($list);
 //     $tmp = null;
 //     $i = 0;
-    
+
 //     if(!$compare){
 //       $compare = function($a,$b){ return $a > $b; };
 //     }
-     
+
 //     if( $n < 2 ) { return $list;}
-    
+
 //     $p = $p === 0 ? $n - 1 : $p - 1; 
-    
+
 //     while( $i <= $p - 1 ){ 
 //       if($compare($list[$i],$list[$i+1])){
 //         $tmp = $list[$i];
@@ -28,9 +28,9 @@ use function php\project\lvl2\src\Functions\typeValueToString;
 //       }
 //       $i++;
 //     }
-      
+
 //     if ( $p === 1 ){ return $list;}
-       
+
 //     return immutableKeySort($list, $compare, $p);
 // }
 
