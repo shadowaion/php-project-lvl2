@@ -91,7 +91,7 @@ function findDiff($parsedArrayOfFileOne, $parsedArrayOfFileTwo): array
                 ];
             }
         }
-    }, $keysArray)
+    }, $keysArray);
     // foreach ($arrayMergedKeysArr as $itemKey => $itemOne) {
         
     // }
