@@ -42,7 +42,8 @@ function parseFile($pathToFile): array
             return json_decode(file_get_contents($pathToFile), true) ?? [];
         }
         if ($extention === 'yml' || $extention === 'yaml') {
-            $resultOfParse = Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP);
+            $contentOfFile = (string) file_get_contents($pathToFile);
+            $resultOfParse = Yaml::parse($contentOfFile, Yaml::PARSE_OBJECT_FOR_MAP);
             return ConvertSTDObjectToArray($resultOfParse);
         }
     }
