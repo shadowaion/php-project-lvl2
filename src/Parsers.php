@@ -35,11 +35,12 @@ function ConvertSTDObjectToArray($objToConvert): array
 
 function parseFile($pathToFile): array
 {
-    if ($pathToFile !== '' || $pathToFile !== null) {
-        if (pathinfo($pathToFile)['extension'] === 'json') {
+    if ($pathToFile !== '') {
+        $extention = substr($pathToFile, strrpos($pathToFile, '.') + 1);
+        if ($extention === 'json') {
             return json_decode(file_get_contents($pathToFile), true);
         }
-        if (pathinfo($pathToFile)['extension'] === 'yml' || pathinfo($pathToFile)['extension'] === 'yaml') {
+        if ($extention === 'yml' || $extention === 'yaml') {
             return ConvertSTDObjectToArray(Yaml::parse(file_get_contents($pathToFile), Yaml::PARSE_OBJECT_FOR_MAP));
         }
     }
