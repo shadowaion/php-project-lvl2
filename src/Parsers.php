@@ -10,9 +10,9 @@ function ConvertSTDObjectToArray($objToConvert): array
 
     $keysArray = array_keys($convertedArray);
     $resultArray = array_map(function ($itemKey) use ($convertedArray): array {
-        $itemValue = $arrayToType[$itemKey];
+        $itemValue = $convertedArray[$itemKey];
 
-        if (is_object($convValue)) {
+        if (is_object($itemValue)) {
             return [$itemKey => ConvertSTDObjectToArray($itemValue)];
         } else {
             return [$itemKey => $itemValue];
